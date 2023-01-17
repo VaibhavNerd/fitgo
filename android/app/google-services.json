@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "155450903686",
+    "project_id": "fitgo-eab69",
+    "storage_bucket": "fitgo-eab69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155450903686:android:c4a9c769a7cb578e0d9507",
+        "android_client_info": {
+          "package_name": "com.example.fitgo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155450903686-vsdcn1i001fm563toho26ens7cqv84ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAESEarsSxsL4Cbi34O3caScJu0ildOTrI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155450903686-vsdcn1i001fm563toho26ens7cqv84ts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
