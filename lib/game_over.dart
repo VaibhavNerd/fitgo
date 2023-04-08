@@ -1,12 +1,43 @@
-import 'package:flutter/material.dart';
-import 'package:gofit/game_page.dart';
+import 'dart:async';
+import 'dart:math';
 
-class HomeScreen extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:sensors_plus/sensors_plus.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+import 'game_page.dart';
+
+
+class GameOver extends StatefulWidget {
+  const GameOver({Key key}) : super(key: key);
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<GameOver> createState() => _GameOverState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _GameOverState extends State<GameOver> {
+  DatabaseReference ref2 = FirebaseDatabase.instance.ref('628713/calorie');
+  int calorie;
+  @override
+  void initState() {
+    getUserData();
+    // TODO: implement initState
+    super.initState();
+  }
+  Future getUserData() async {
+    Stream<DatabaseEvent> stream = ref2.onValue;
+
+// Subscribe to the stream!
+    stream.listen((DatabaseEvent event) {
+      // print('Event Type: ${event.type}'); // DatabaseEventType.value;
+      // print('Snapshot: ${event.snapshot}'); // DataSnapshot
+      calorie = event.snapshot.value;
+      print("calorie");
+      print(calorie);
+
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -15,15 +46,16 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              "FitGo",
+              "GameOver",
               style: TextStyle(
                 fontSize: 28,
               ),
             ),
+           // SizedBox(height: 5,),
             Text(
-              "Code : 682314",
+               "Calorie: 8",
               style: TextStyle(
-                fontSize: 28, color: Colors.indigo , fontWeight: FontWeight.bold,
+                fontSize: 40,color: Colors.green, fontWeight: FontWeight.bold
               ),
             ),
             Center(
@@ -43,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(100),
                   child: Text(
-                    'START',
+                    'RESTART',
                     style: TextStyle(color: Colors.white, fontSize: 24),
                   ),
                 ),
