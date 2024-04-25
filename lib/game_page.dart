@@ -17,8 +17,8 @@ class _GamePageState extends State<GamePage> {
    DatabaseReference ref = FirebaseDatabase.instance.ref('628713');
    DatabaseReference ref2 = FirebaseDatabase.instance.ref('628713/over');
    var goJump = true;
-  double x, y, z;
-   List<double> values = List<double>.filled(6, 0) ;
+  double  x =0, y=0, z=0;
+   List<double> values = List<double>.filled(6,0) ;
   double last = 0.0,
       second = 0.0,
       third = 0.0,
@@ -27,7 +27,7 @@ class _GamePageState extends State<GamePage> {
       sixth = 0.0,
       var1=1,
       var2=0;
-      int over;
+      int? over;
   @override
   void initState() {
     getUserData();
@@ -62,7 +62,7 @@ class _GamePageState extends State<GamePage> {
      stream.listen((DatabaseEvent event) {
        // print('Event Type: ${event.type}'); // DatabaseEventType.value;
        // print('Snapshot: ${event.snapshot}'); // DataSnapshot
-        over = event.snapshot.value;
+        over = event.snapshot.value as int?;
        print(over);
         if(over==1){
           setState(() {
@@ -320,7 +320,7 @@ class _GamePageState extends State<GamePage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Z Asis : ",
+                          "Z Axis : ",
                           style: TextStyle(fontSize: 20.0),
                         ),
                       ),
@@ -340,7 +340,7 @@ class _GamePageState extends State<GamePage> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.red,
+                  backgroundColor: Colors.red,
                   minimumSize: Size(160, 60),
                  // fixedSize: Size.fromWidth(100),
                   padding: EdgeInsets.all(10),
@@ -356,7 +356,7 @@ class _GamePageState extends State<GamePage> {
               SizedBox( height: 40,),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.teal,
+                  backgroundColor: Colors.teal,
                  minimumSize: Size(160, 60),
                 // minimumSize: Size.fromHeight(160),
                  // fixedSize: Size.fromWidth(100),

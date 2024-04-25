@@ -5,7 +5,7 @@ import 'package:gofit/homescreen.dart';
 import 'package:gofit/onboarding_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-int initScreen;
+int ? initScreen;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

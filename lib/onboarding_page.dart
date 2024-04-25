@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+CarouselController buttonCarouselController = CarouselController();
+
 var color1 = Colors.white;
 var color2 = Colors.white;
 var color3 = Colors.white;
+
 
 List<String> image = [
   'assets/images/onboard-1.png',
@@ -29,20 +32,26 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
-  CarouselSlider carouselSlider;
-  int carouselIndex = 0;
+  CarouselSlider ?carouselSlider;
+  int  carouselIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+
     carouselSlider = CarouselSlider(
-      viewportFraction: 1.0,
-      enableInfiniteScroll: false,
-      onPageChanged: (index) {
-        setState(() {
-          carouselIndex = index;
-        });
-      },
-      height: MediaQuery.of(context).size.height,
+      carouselController: buttonCarouselController,
+      options: CarouselOptions(
+        viewportFraction: 1.0,
+        enableInfiniteScroll: false,
+        onPageChanged: (int index, CarouselPageChangedReason reason) {
+          setState(() {
+            carouselIndex = index;
+          });
+        },
+        height: MediaQuery.of(context).size.height,
+      ),
+
+
       items: <Widget>[
         CarouselComponent(
           col1: color1,
@@ -72,61 +81,61 @@ class _OnboardingState extends State<Onboarding> {
       floatingActionButton: carouselIndex == 2
           ? Container()
           : IconButton(
-              icon: Icon(
-                Icons.chevron_right,
-                size: 35,
-                color: Color(0xFF023E8A),
-              ),
-              onPressed: () {
-                carouselSlider.nextPage(
-                    duration: Duration(milliseconds: 500), curve: Curves.ease);
-              }),
+          icon: Icon(
+            Icons.chevron_right,
+            size: 35,
+            color: Color(0xFF023E8A),
+          ),
+          onPressed: () {
+            buttonCarouselController.nextPage(
+                duration: Duration(milliseconds: 500), curve: Curves.ease);
+          }),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          carouselSlider,
+          carouselSlider!,
           carouselIndex == 2
               ? Positioned(
-                  bottom: MediaQuery.of(context).size.height * 0.07,
-                  child: MaterialButton(
-                    color: Color(0xFF023E8A),
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context,'second');
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
-                    child: Text(
-                      "CONTINUE",
-                      style: TextStyle(
-                        color: Colors.white,
-                        letterSpacing: 2,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                )
-              : Positioned(
-                  bottom: MediaQuery.of(context).size.height * 0.12,
-                  child: Row(
-                    children: <Widget>[
-                      Indicator(
-                        carouselIndex: carouselIndex,
-                        indicatorIndex: 0,
-                      ),
-                      Indicator(
-                        carouselIndex: carouselIndex,
-                        indicatorIndex: 1,
-                      ),
-                      Indicator(
-                        carouselIndex: carouselIndex,
-                        indicatorIndex: 2,
-                      ),
-                    ],
-                  ),
+            bottom: MediaQuery.of(context).size.height * 0.07,
+            child: MaterialButton(
+              color: Color(0xFF023E8A),
+              onPressed: () {
+                Navigator.pushReplacementNamed(context,'second');
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 90, vertical: 15),
+              child: Text(
+                "CONTINUE",
+                style: TextStyle(
+                  color: Colors.white,
+                  letterSpacing: 2,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
                 ),
+              ),
+            ),
+          )
+              : Positioned(
+            bottom: MediaQuery.of(context).size.height * 0.12,
+            child: Row(
+              children: <Widget>[
+                Indicator(
+                  carouselIndex: carouselIndex,
+                  indicatorIndex: 0,
+                ),
+                Indicator(
+                  carouselIndex: carouselIndex,
+                  indicatorIndex: 1,
+                ),
+                Indicator(
+                  carouselIndex: carouselIndex,
+                  indicatorIndex: 2,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -216,7 +225,7 @@ class Indicator extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color:
-            carouselIndex == indicatorIndex ? Color(0xFF023E8A) : Colors.grey,
+        carouselIndex == indicatorIndex ? Color(0xFF023E8A) : Colors.grey,
       ),
     );
   }

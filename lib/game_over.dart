@@ -9,7 +9,7 @@ import 'game_page.dart';
 
 
 class GameOver extends StatefulWidget {
-  const GameOver({Key key}) : super(key: key);
+  const GameOver({Key ?key}) : super(key: key);
 
   @override
   State<GameOver> createState() => _GameOverState();
@@ -17,7 +17,7 @@ class GameOver extends StatefulWidget {
 
 class _GameOverState extends State<GameOver> {
   DatabaseReference ref2 = FirebaseDatabase.instance.ref('628713/calorie');
-  int calorie;
+  int ?calorie;
   @override
   void initState() {
     getUserData();
@@ -31,7 +31,7 @@ class _GameOverState extends State<GameOver> {
     stream.listen((DatabaseEvent event) {
       // print('Event Type: ${event.type}'); // DatabaseEventType.value;
       // print('Snapshot: ${event.snapshot}'); // DataSnapshot
-      calorie = event.snapshot.value;
+      calorie = event.snapshot.value as int?;
       print("calorie");
       print(calorie);
 
@@ -51,7 +51,7 @@ class _GameOverState extends State<GameOver> {
                 fontSize: 28,
               ),
             ),
-           // SizedBox(height: 5,),
+           // SizedadBox(height: 5,),
             Text(
                "Calorie: 8",
               style: TextStyle(
